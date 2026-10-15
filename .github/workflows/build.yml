@@ -19,14 +19,18 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             bc bison build-essential flex libssl-dev libelf-dev \
-            device-tree-compiler libncurses5 libncurses5-dev python3 python-is-python3
+            device-tree-compiler libncurses5 libncurses5-dev \
+            python3 python-is-python3 cpio kmod zip unzip
           sudo apt-get clean
 
       - name: Download AOSP Toolchains (Clang 11 & GCC 4.9)
         run: |
           mkdir -p toolchains && cd toolchains
-          git clone --depth=1 https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r383902.git clang
+          # AOSP Clang 11.0.1 (Build 6443078 based on r383902)
+          git clone --depth=1 https://github.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-6443078.git clang
+          # AOSP GCC 4.9 aarch64
           git clone --depth=1 -b android10-release https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 gcc64
+          # AOSP GCC 4.9 arm32
           git clone --depth=1 -b android10-release https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9 gcc32
 
       - name: Configure Defconfig

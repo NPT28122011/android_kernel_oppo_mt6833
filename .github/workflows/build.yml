@@ -1,1 +1,72 @@
+name: Build MT6833 Custom Kernel
 
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Compile Kernel Image.gz-dtb
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Install Build Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            bc bison build-essential flex libssl-dev libelf-dev \
+            device-tree-compiler libncurses5 libncurses5-dev python3 python-is-python3
+          sudo apt-get clean
+
+      - name: Download AOSP Toolchains (Clang 11 & GCC 4.9)
+        run: |
+          mkdir -p toolchains && cd toolchains
+          git clone --depth=1 https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r383902.git clang
+          git clone --depth=1 -b android10-release https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 gcc64
+          git clone --depth=1 -b android10-release https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9 gcc32
+
+      - name: Configure Defconfig
+        run: |
+          export PATH="${GITHUB_WORKSPACE}/toolchains/clang/bin:${GITHUB_WORKSPACE}/toolchains/gcc64/bin:${GITHUB_WORKSPACE}/toolchains/gcc32/bin:${PATH}"
+          make O=out ARCH=arm64 k6833v1_64_defconfig
+
+      - name: Compile Kernel (Image.gz-dtb)
+        run: |
+          export PATH="${GITHUB_WORKSPACE}/toolchains/clang/bin:${GITHUB_WORKSPACE}/toolchains/gcc64/bin:${GITHUB_WORKSPACE}/toolchains/gcc32/bin:${PATH}"
+          make -j2 O=out \
+            ARCH=arm64 \
+            CC=clang \
+            LD=ld.lld \
+            AR=llvm-ar \
+            NM=llvm-nm \
+            OBJCOPY=llvm-objcopy \
+            OBJDUMP=llvm-objdump \
+            READELF=llvm-readelf \
+            STRIP=llvm-strip \
+            CLANG_TRIPLE=aarch64-linux-gnu- \
+            CROSS_COMPILE=aarch64-linux-android- \
+            CROSS_COMPILE_ARM32=arm-linux-androideabi- \
+            Image.gz-dtb
+
+      - name: Verify Build Artifact
+        run: |
+          mkdir -p output
+          if [ -f out/arch/arm64/boot/Image.gz-dtb ]; then
+            echo "[SUCCESS] Image.gz-dtb generated!"
+            cp out/arch/arm64/boot/Image.gz-dtb output/
+            ls -lh output/Image.gz-dtb
+          else
+            echo "[ERROR] Image.gz-dtb missing!"
+            ls -la out/arch/arm64/boot/ || true
+            exit 1
+          fi
+
+      - name: Upload Kernel Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MT6833-Kernel-Image.gz-dtb
+          path: output/Image.gz-dtb

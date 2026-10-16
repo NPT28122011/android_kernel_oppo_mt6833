@@ -69,7 +69,13 @@
 #include <asm/mmu_context.h>
 
 #ifdef OPLUS_BUG_STABILITY
-#include <soc/oplus/system/oppo_process.h>
+// #include <soc/oplus/system/oppo_process.h>
+/* STUB: Bypass missing oppo_process.h in exit.c */
+#define oppo_mm_free_pgd(...) do {} while (0)
+#define oppo_task_exit(...) do {} while (0)
+#define oplus_task_exit(...) do {} while (0)
+#define oplus_is_critical_process(...) (0)
+#define is_critical_process(...) (0)
 #endif
 
 #ifdef CONFIG_OPLUS_FEATURE_UID_PERF

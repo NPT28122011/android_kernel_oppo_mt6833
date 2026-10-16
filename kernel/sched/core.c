@@ -66,10 +66,10 @@
 #endif /* CONFIG_MTK_QOS_FRAMEWORK */
 
 #ifdef OPLUS_FEATURE_SCHED_ASSIST
-#include <linux/sched_assist/sched_assist_common.h>
+/* #include <linux/sched_assist/sched_assist_common.h> */
 #endif /* OPLUS_FEATURE_SCHED_ASSIST */
 #if defined(OPLUS_FEATURE_SCHED_ASSIST) && defined(CONFIG_SCHED_WALT)
-#include <linux/sched_assist/sched_assist_slide.h>
+/* #include <linux/sched_assist/sched_assist_slide.h> */
 #endif /* defined(OPLUS_FEATURE_SCHED_ASSIST) && defined(CONFIG_OPLUS_FEATURE_SCHED_ASSIST) */
 
 #if defined(OPLUS_FEATURE_TASK_CPUSTATS) && defined(CONFIG_OPLUS_SCHED)

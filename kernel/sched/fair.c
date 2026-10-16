@@ -49,7 +49,7 @@
 #include "eas_plus.h"
 #include "hmp.h"
 #ifdef OPLUS_FEATURE_SCHED_ASSIST
-#include <linux/sched_assist/sched_assist_common.h>
+/* #include <linux/sched_assist/sched_assist_common.h> */
 bool ux_task_misfit(struct task_struct *p, int cpu);
 #endif /* OPLUS_FEATURE_SCHED_ASSIST */
 

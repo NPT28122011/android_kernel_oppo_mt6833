@@ -107,7 +107,12 @@
 #define CREATE_TRACE_POINTS
 #include <trace/events/task.h>
 #ifdef OPLUS_FEATURE_SCHED_ASSIST
-#include <linux/sched_assist/sched_assist_fork.h>
+// #include <linux/sched_assist/sched_assist_fork.h>
+/* STUB: Bypass missing sched_assist_fork */
+#define sched_assist_fork(...) do {} while (0)
+#define sched_assist_free(...) do {} while (0)
+#define sched_assist_init(...) do {} while (0)
+#define sched_assist_fork_init(...) do {} while (0)
 #endif /* OPLUS_FEATURE_SCHED_ASSIST */
 #include <mt-plat/mtk_pidmap.h>
 #ifdef CONFIG_MTK_TASK_TURBO

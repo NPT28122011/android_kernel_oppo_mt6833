@@ -12,15 +12,6 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-      - name: Setup Extra Swap (Anti-OOM for LLVM LTO)
-        run: |
-          # Tạo thêm 8GB swap trên phân vùng /mnt an toàn, không đụng file hệ thống
-          sudo fallocate -l 8G /mnt/swapfile_extra
-          sudo chmod 600 /mnt/swapfile_extra
-          sudo mkswap /mnt/swapfile_extra
-          sudo swapon /mnt/swapfile_extra
-          free -h
-
       - name: Checkout Source Code
         uses: actions/checkout@v4
         with:
@@ -39,7 +30,7 @@ jobs:
         run: |
           mkdir -p toolchains && cd toolchains
           # AOSP Clang 11.0.1 (Build 6443078 based on r383902)
-          git clone --depth=1 https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r383902.git clang
+          git clone --depth=1 https://github.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-6443078.git clang
           # AOSP GCC 4.9 aarch64
           git clone --depth=1 -b android10-release https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 gcc64
           # AOSP GCC 4.9 arm32
@@ -47,7 +38,6 @@ jobs:
 
       - name: Prepare fake .scmversion (Vermagic strict matching)
         run: |
-          # Đảm bảo vermagic chuẩn xác 4.14.186+ (Không bị gắn mã băm git)
           echo "+" > .scmversion
 
       - name: Configure Defconfig
@@ -58,7 +48,7 @@ jobs:
       - name: Compile Kernel (Image.gz-dtb)
         run: |
           export PATH="${GITHUB_WORKSPACE}/toolchains/clang/bin:${GITHUB_WORKSPACE}/toolchains/gcc64/bin:${GITHUB_WORKSPACE}/toolchains/gcc32/bin:${PATH}"
-          make -j$(nproc) O=out \
+          make -j2 O=out \
             ARCH=arm64 \
             CC=clang \
             LD=ld.lld \

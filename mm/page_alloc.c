@@ -84,7 +84,10 @@
 #endif
 
 #if defined(OPLUS_FEATURE_MULTI_FREEAREA) && defined(CONFIG_PHYSICAL_ANTI_FRAGMENTATION)
-#include "multi_freearea.h"
+/* #include "multi_freearea.h" */
+/* STUB: Bypass missing multi_freearea.h */
+#define multi_freearea_init(...) do {} while (0)
+#define multi_freearea_alloc(...) NULL
 #endif
 
 /* prevent >1 _updater_ of zone percpu pageset ->high and ->batch fields */

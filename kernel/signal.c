@@ -63,6 +63,7 @@
 #define oppo_process_exit(...) do {} while (0)
 #define is_oppo_process(...)   (0)
 #define oppo_process_skip_olmk(...) (0)
+#define is_key_process(...)  (0)
 #endif
 
 /*

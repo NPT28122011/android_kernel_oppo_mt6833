@@ -57,7 +57,12 @@
 #endif /*OPLUS_FEATURE_HANS_FREEZE*/
 
 #ifdef OPLUS_BUG_STABILITY
-#include <soc/oplus/system/oppo_process.h>
+/* #include <soc/oplus/system/oppo_process.h> */
+/* STUB: Bypass missing oppo_process.h */
+#define oppo_process_init(...) do {} while (0)
+#define oppo_process_exit(...) do {} while (0)
+#define is_oppo_process(...)   (0)
+#define oppo_process_skip_olmk(...) (0)
 #endif
 
 /*

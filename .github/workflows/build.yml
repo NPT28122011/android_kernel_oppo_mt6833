@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - '**' # Tự động kích hoạt build nếu bạn sửa code trên VS Code Web và push
+      - '**'
 
 jobs:
   build:
@@ -12,15 +12,13 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-      - name: Free up disk space and setup Swap (Anti OOM for LLVM LTO)
+      - name: Setup Extra Swap (Anti-OOM for LLVM LTO)
         run: |
-          echo "Dọn dẹp bớt các gói phần mềm không cần thiết của GitHub Runner..."
-          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
-          echo "Tạo Swap file 10GB để chống lỗi LLVM Broken Pipe..."
-          sudo fallocate -l 10G /swapfile
-          sudo chmod 600 /swapfile
-          sudo mkswap /swapfile
-          sudo swapon /swapfile
+          # Tạo thêm 8GB swap trên phân vùng /mnt an toàn, không đụng file hệ thống
+          sudo fallocate -l 8G /mnt/swapfile_extra
+          sudo chmod 600 /mnt/swapfile_extra
+          sudo mkswap /mnt/swapfile_extra
+          sudo swapon /mnt/swapfile_extra
           free -h
 
       - name: Checkout Source Code
@@ -55,13 +53,11 @@ jobs:
       - name: Configure Defconfig
         run: |
           export PATH="${GITHUB_WORKSPACE}/toolchains/clang/bin:${GITHUB_WORKSPACE}/toolchains/gcc64/bin:${GITHUB_WORKSPACE}/toolchains/gcc32/bin:${PATH}"
-          # Tạo config từ file defconfig chuẩn
           make O=out ARCH=arm64 k6833v1_64_defconfig
 
       - name: Compile Kernel (Image.gz-dtb)
         run: |
           export PATH="${GITHUB_WORKSPACE}/toolchains/clang/bin:${GITHUB_WORKSPACE}/toolchains/gcc64/bin:${GITHUB_WORKSPACE}/toolchains/gcc32/bin:${PATH}"
-          # Dùng -j$(nproc) vì đã có Swap 10GB gánh LTO
           make -j$(nproc) O=out \
             ARCH=arm64 \
             CC=clang \

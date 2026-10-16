@@ -45,11 +45,31 @@
 
 #include "sched.h"
 #include "tune.h"
-#include "walt.h"
-#include "eas_plus.h"
-#include "hmp.h"
 #ifdef OPLUS_FEATURE_SCHED_ASSIST
-/* #include <linux/sched_assist/sched_assist_common.h> */
+enum {
+	SA_SLIDE = 0,
+	SA_INPUT,
+	SA_LAUNCHER_SI,
+	SA_ANIM,
+	SA_LAUNCH,
+	SA_MAX,
+};
+
+static inline void sf_task_util_record(struct task_struct *p) { }
+static inline bool test_task_ux(struct task_struct *p) { return false; }
+static inline bool sched_assist_scene(int scene) { return false; }
+static inline bool is_heavy_ux_task(struct task_struct *p) { return false; }
+static inline void place_entity_adjust_ux_task(struct cfs_rq *cfs_rq, struct sched_entity *se, int initial) { }
+static inline bool should_ux_task_skip_further_check(struct sched_entity *se) { return false; }
+static inline void enqueue_ux_thread(struct rq *rq, struct task_struct *p) { }
+static inline void dequeue_ux_thread(struct rq *rq, struct task_struct *p) { }
+static inline bool should_ux_preempt_wakeup(struct task_struct *p, struct task_struct *curr) { return false; }
+static inline void pick_ux_thread(struct rq *rq, struct task_struct **p, struct sched_entity **se) { }
+static inline bool should_ux_task_skip_cpu(struct task_struct *p, int cpu) { return false; }
+static inline void find_ux_task_cpu(struct task_struct *p, int *new_cpu) { }
+static inline bool set_ux_task_to_prefer_cpu(struct task_struct *p, int *new_cpu) { return false; }
+bool ux_task_misfit(struct task_struct *p, int cpu);
+#endif /* OPLUS_FEATURE_SCHED_ASSIST */
 bool ux_task_misfit(struct task_struct *p, int cpu);
 #endif /* OPLUS_FEATURE_SCHED_ASSIST */
 

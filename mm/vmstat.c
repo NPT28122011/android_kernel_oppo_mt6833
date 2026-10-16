@@ -2009,8 +2009,8 @@ void __init init_mm_internals(void)
 	proc_create("vmstat", 0444, NULL, &vmstat_file_operations);
 	proc_create("zoneinfo", 0444, NULL, &zoneinfo_file_operations);
 #if defined(OPLUS_FEATURE_MULTI_FREEAREA) && defined(CONFIG_PHYSICAL_ANTI_FRAGMENTATION)
-	pentry = proc_create("free_area_list_show", S_IRWXUGO, NULL, &proc_free_area_fops);
-	if (!pentry) {
+	// pentry = proc_create("free_area_list_show", S_IRWXUGO, NULL, &proc_free_area_fops);
+	// if (!pentry) {
 		pr_err("vmstat: failed to create '/proc/free_area_list_show'\n");
 		return;
 	}

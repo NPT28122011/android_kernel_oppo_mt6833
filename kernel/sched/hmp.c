@@ -21,7 +21,7 @@
 #include <linux/cpumask.h>
 #include <linux/list_sort.h>
 #ifdef OPLUS_FEATURE_SCHED_ASSIST
-#include <linux/sched_assist/sched_assist_common.h>
+// #include <linux/sched_assist/sched_assist_common.h>
 #endif /* OPLUS_FEATURE_SCHED_ASSIST */
 
 /*

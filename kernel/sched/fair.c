@@ -73,7 +73,8 @@ static inline bool should_ux_task_skip_cpu(struct task_struct *p, int cpu) { ret
 static inline void find_ux_task_cpu(struct task_struct *p, int *new_cpu) { }
 static inline bool set_ux_task_to_prefer_cpu(struct task_struct *p, int *new_cpu) { return false; }
 bool ux_task_misfit(struct task_struct *p, int cpu);
-
+static inline bool test_ux_task_cpu(int cpu) { return false; }
+static inline bool is_sf(struct task_struct *p) { return false; }
 #ifdef CONFIG_OPLUS_PREFER_SILVER
 #include <linux/prefer_silver.h>
 #endif /* CONFIG_OPLUS_PREFER_SILVER */

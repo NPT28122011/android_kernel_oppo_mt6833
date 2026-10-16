@@ -81,6 +81,19 @@
 
 #if defined(CONFIG_DMAUSER_PAGES)
 #include <mt-plat/aee.h>
+/* STUB: Bypass missing oplus multi_freearea in page_alloc.c */
+#ifndef page_to_flc
+#define page_to_flc(...) (0)
+#endif
+#ifndef list_sort_add
+#define list_sort_add(...) do {} while (0)
+#endif
+#ifndef ajust_flc
+#define ajust_flc(...) (0)
+#endif
+#ifndef ajust_zone_label
+#define ajust_zone_label(...) do {} while (0)
+#endif
 #endif
 
 #if defined(OPLUS_FEATURE_MULTI_FREEAREA) && defined(CONFIG_PHYSICAL_ANTI_FRAGMENTATION)

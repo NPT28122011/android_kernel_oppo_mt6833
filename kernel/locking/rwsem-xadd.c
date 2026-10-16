@@ -29,6 +29,13 @@
 #include <linux/sched/clock.h>
 #include <linux/mm.h>
 #include <linux/sched.h>
+/* STUB: Bypass missing oplus sched_assist UX in rwsem-xadd.c */
+#ifndef rwsem_set_inherit_ux
+#define rwsem_set_inherit_ux(...) do {} while (0)
+#endif
+#ifndef rwsem_unset_inherit_ux
+#define rwsem_unset_inherit_ux(...) do {} while (0)
+#endif
 extern int sysctl_mmapsem_uninterruptable_time;
 #endif
 /*

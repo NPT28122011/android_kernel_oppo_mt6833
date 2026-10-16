@@ -28,6 +28,16 @@
 #include <linux/interrupt.h>
 #include <linux/debug_locks.h>
 #include <linux/osq_lock.h>
+/* STUB: Bypass missing oplus sched_assist UX in mutex.c */
+#ifndef mutex_list_add
+#define mutex_list_add(...) do {} while (0)
+#endif
+#ifndef mutex_set_inherit_ux
+#define mutex_set_inherit_ux(...) do {} while (0)
+#endif
+#ifndef mutex_unset_inherit_ux
+#define mutex_unset_inherit_ux(...) do {} while (0)
+#endif
 
 #ifdef CONFIG_DEBUG_MUTEXES
 # include "mutex-debug.h"

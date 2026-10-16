@@ -62,19 +62,12 @@
 #define GIC_ISO_CODE (1 << 0)
 #endif
 #ifdef CONFIG_MTK_QOS_FRAMEWORK
-#include <mt-plat/mtk_qos_prefetch_common.h>
+#include <mt-plat/mtk_gpufetch_prefetch_common.h>
 #endif /* CONFIG_MTK_QOS_FRAMEWORK */
 
-#ifdef OPLUS_FEATURE_SCHED_ASSIST
-/* #include <linux/sched_assist/sched_assist_common.h> */
-#endif /* OPLUS_FEATURE_SCHED_ASSIST */
-#if defined(OPLUS_FEATURE_SCHED_ASSIST) && defined(CONFIG_SCHED_WALT)
-/* #include <linux/sched_assist/sched_assist_slide.h> */
-#endif /* defined(OPLUS_FEATURE_SCHED_ASSIST) && defined(CONFIG_OPLUS_FEATURE_SCHED_ASSIST) */
-
-#if defined(OPLUS_FEATURE_TASK_CPUSTATS) && defined(CONFIG_OPLUS_SCHED)
-#include <linux/task_sched_info.h>
-/* STUB: Bypass missing oplus sched_assist UX in sched/core.c */
+/* STUB: Bypass missing sched_assist UX in sched/core.c
+ * Đặt NGOÀI mọi #if để không phụ thuộc flag nào
+ */
 #ifndef slide_calc_boost_load
 #define slide_calc_boost_load(...) do {} while (0)
 #endif
@@ -84,10 +77,20 @@
 #ifndef ux_init_rq_data
 #define ux_init_rq_data(...) do {} while (0)
 #endif
+
+#ifdef OPLUS_FEATURE_SCHED_ASSIST
+/* #include <linux/sched_assist/sched_assist_common.h> */
+#endif /* OPLUS_FEATURE_SCHED_ASSIST */
+
+#if defined(OPLUS_FEATURE_SCHED_ASSIST) && defined(CONFIG_SCHED_WALT)
+/* #include <linux/sched_assist/sched_assist_slide.h> */
+#endif /* defined(OPLUS_FEATURE_SCHED_ASSIST) && defined(CONFIG_SCHED_WALT) */
+
+#if defined(OPLUS_FEATURE_TASK_CPUSTATS) && defined(CONFIG_OPLUS_SCHED)
+#include <linux/task_sched_info.h>
 #endif /* defined(OPLUS_FEATURE_TASK_CPUSTATS) && defined(CONFIG_OPLUS_SCHED) */
 
 DEFINE_PER_CPU_SHARED_ALIGNED(struct rq, runqueues);
-
 DEFINE_MUTEX(sched_isolation_mutex);
 struct cpumask cpu_all_masks;
 struct cpumask available_cpus;

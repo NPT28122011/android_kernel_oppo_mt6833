@@ -74,6 +74,16 @@
 
 #if defined(OPLUS_FEATURE_TASK_CPUSTATS) && defined(CONFIG_OPLUS_SCHED)
 #include <linux/task_sched_info.h>
+/* STUB: Bypass missing oplus sched_assist UX in sched/core.c */
+#ifndef slide_calc_boost_load
+#define slide_calc_boost_load(...) do {} while (0)
+#endif
+#ifndef ux_init_cpu_data
+#define ux_init_cpu_data(...) do {} while (0)
+#endif
+#ifndef ux_init_rq_data
+#define ux_init_rq_data(...) do {} while (0)
+#endif
 #endif /* defined(OPLUS_FEATURE_TASK_CPUSTATS) && defined(CONFIG_OPLUS_SCHED) */
 
 DEFINE_PER_CPU_SHARED_ALIGNED(struct rq, runqueues);

@@ -57,7 +57,7 @@
 #include <linux/balloon_compaction.h>
 
 #if defined(OPLUS_FEATURE_PROCESS_RECLAIM) && defined(CONFIG_PROCESS_RECLAIM_ENHANCE)
-#include <linux/process_mm_reclaim.h>
+// #include <linux/process_mm_reclaim.h>
 #endif
 
 #include "internal.h"

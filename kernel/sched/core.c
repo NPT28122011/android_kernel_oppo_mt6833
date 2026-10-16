@@ -62,7 +62,7 @@
 #define GIC_ISO_CODE (1 << 0)
 #endif
 #ifdef CONFIG_MTK_QOS_FRAMEWORK
-#include <mt-plat/mtk_gpufetch_prefetch_common.h>
+// #include <mt-plat/mtk_gpufetch_prefetch_common.h>
 #endif /* CONFIG_MTK_QOS_FRAMEWORK */
 
 /* STUB: Bypass missing sched_assist UX in sched/core.c

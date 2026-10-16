@@ -2,6 +2,9 @@ name: Build MT6833 Custom Kernel
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - '**' # Tự động kích hoạt build nếu bạn sửa code trên VS Code Web và push
 
 jobs:
   build:
@@ -9,6 +12,17 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
+      - name: Free up disk space and setup Swap (Anti OOM for LLVM LTO)
+        run: |
+          echo "Dọn dẹp bớt các gói phần mềm không cần thiết của GitHub Runner..."
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
+          echo "Tạo Swap file 10GB để chống lỗi LLVM Broken Pipe..."
+          sudo fallocate -l 10G /swapfile
+          sudo chmod 600 /swapfile
+          sudo mkswap /swapfile
+          sudo swapon /swapfile
+          free -h
+
       - name: Checkout Source Code
         uses: actions/checkout@v4
         with:
@@ -27,21 +41,28 @@ jobs:
         run: |
           mkdir -p toolchains && cd toolchains
           # AOSP Clang 11.0.1 (Build 6443078 based on r383902)
-          git clone --depth=1 https://github.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-6443078.git clang
+          git clone --depth=1 https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r383902.git clang
           # AOSP GCC 4.9 aarch64
           git clone --depth=1 -b android10-release https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 gcc64
           # AOSP GCC 4.9 arm32
           git clone --depth=1 -b android10-release https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9 gcc32
 
+      - name: Prepare fake .scmversion (Vermagic strict matching)
+        run: |
+          # Đảm bảo vermagic chuẩn xác 4.14.186+ (Không bị gắn mã băm git)
+          echo "+" > .scmversion
+
       - name: Configure Defconfig
         run: |
           export PATH="${GITHUB_WORKSPACE}/toolchains/clang/bin:${GITHUB_WORKSPACE}/toolchains/gcc64/bin:${GITHUB_WORKSPACE}/toolchains/gcc32/bin:${PATH}"
+          # Tạo config từ file defconfig chuẩn
           make O=out ARCH=arm64 k6833v1_64_defconfig
 
       - name: Compile Kernel (Image.gz-dtb)
         run: |
           export PATH="${GITHUB_WORKSPACE}/toolchains/clang/bin:${GITHUB_WORKSPACE}/toolchains/gcc64/bin:${GITHUB_WORKSPACE}/toolchains/gcc32/bin:${PATH}"
-          make -j2 O=out \
+          # Dùng -j$(nproc) vì đã có Swap 10GB gánh LTO
+          make -j$(nproc) O=out \
             ARCH=arm64 \
             CC=clang \
             LD=ld.lld \
@@ -56,7 +77,7 @@ jobs:
             CROSS_COMPILE_ARM32=arm-linux-androideabi- \
             Image.gz-dtb
 
-      - name: Verify Build Artifact
+      - name: Verify and Package Build Artifact
         run: |
           mkdir -p output
           if [ -f out/arch/arm64/boot/Image.gz-dtb ]; then

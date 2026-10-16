@@ -45,7 +45,11 @@
 
 #include "sched.h"
 #include "tune.h"
-#ifdef OPLUS_FEATURE_SCHED_ASSIST
+#include "walt.h"
+#include "eas_plus.h"
+#include "hmp.h"
+
+/* OPLUS Sched Assist Stubs */
 enum {
 	SA_SLIDE = 0,
 	SA_INPUT,
@@ -69,9 +73,6 @@ static inline bool should_ux_task_skip_cpu(struct task_struct *p, int cpu) { ret
 static inline void find_ux_task_cpu(struct task_struct *p, int *new_cpu) { }
 static inline bool set_ux_task_to_prefer_cpu(struct task_struct *p, int *new_cpu) { return false; }
 bool ux_task_misfit(struct task_struct *p, int cpu);
-#endif /* OPLUS_FEATURE_SCHED_ASSIST */
-bool ux_task_misfit(struct task_struct *p, int cpu);
-#endif /* OPLUS_FEATURE_SCHED_ASSIST */
 
 #ifdef CONFIG_OPLUS_PREFER_SILVER
 #include <linux/prefer_silver.h>
@@ -83,6 +84,7 @@ bool ux_task_misfit(struct task_struct *p, int cpu);
 #include <soc/oplus/healthinfo.h>
 #endif
 #endif /* OPLUS_FEATURE_HEALTHINFO */
+
 #if defined(OPLUS_FEATURE_SCHED_ASSIST) && defined(CONFIG_SCHED_WALT)
 #include <linux/sched.h>
 extern u64 ux_task_load[];
@@ -92,6 +94,7 @@ extern unsigned int walt_ravg_window;
 #define scale_demand(d) ((d)/walt_scale_demand_divisor)
 #define UX_LOAD_WINDOW 8000000
 #endif /* OPLUS_FEATURE_SCHED_ASSIST */
+
 /*
  * Targeted preemption latency for CPU-bound tasks:
  *

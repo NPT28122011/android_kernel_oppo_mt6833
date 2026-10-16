@@ -35,6 +35,12 @@
 #ifdef OPLUS_FEATURE_PHOENIX
 // #include "../drivers/soc/oplus/system/oplus_phoenix/oplus_phoenix.h"
 /* STUB: Bypass missing oplus_phoenix in panic.c */
+enum {
+	ERROR_KERNEL_PANIC = 0,
+	ERROR_HWT = 1,
+};
+static inline int phx_is_phoenix_boot_completed(void) { return 1; }
+static inline void phx_set_boot_error(int err) {}
 #define op_kernel_panic(...) do {} while (0)
 #define oplus_phoenix_panic(...) do {} while (0)
 #define phoenix_kernel_panic(...) do {} while (0)

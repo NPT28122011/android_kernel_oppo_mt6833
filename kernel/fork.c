@@ -113,6 +113,8 @@
 #define sched_assist_free(...) do {} while (0)
 #define sched_assist_init(...) do {} while (0)
 #define sched_assist_fork_init(...) do {} while (0)
+#define init_task_ux_info(...) do {} while (0)
+#define free_task_ux_info(...) do {} while (0)
 #endif /* OPLUS_FEATURE_SCHED_ASSIST */
 #include <mt-plat/mtk_pidmap.h>
 #ifdef CONFIG_MTK_TASK_TURBO

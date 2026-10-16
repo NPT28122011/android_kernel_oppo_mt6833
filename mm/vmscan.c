@@ -57,7 +57,9 @@
 #include <linux/balloon_compaction.h>
 
 #if defined(OPLUS_FEATURE_PROCESS_RECLAIM) && defined(CONFIG_PROCESS_RECLAIM_ENHANCE)
-// #include <linux/process_mm_reclaim.h>
+#include <linux/proc_fs.h>
+// Stub cho tính năng Oppo bị thiếu
+static inline int is_reclaim_should_cancel(void *walk) { return 0; }
 #endif
 
 #include "internal.h"

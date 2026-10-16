@@ -55,7 +55,7 @@ static int share_buck[3] = {0, 1, 2};
 #define CCI_ID (arch_get_nr_clusters())
 
 #ifdef OPLUS_FEATURE_SCHED_ASSIST
-#include <linux/sched_assist/sched_assist_common.h>
+// #include <linux/sched_assist/sched_assist_common.h>
 #endif /* OPLUS_FEATURE_SCHED_ASSIST */
 
 static void

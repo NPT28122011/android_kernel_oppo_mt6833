@@ -30,7 +30,7 @@
 
 #include "internal.h"
 #if defined(OPLUS_FEATURE_MULTI_FREEAREA) && defined(CONFIG_PHYSICAL_ANTI_FRAGMENTATION)
-#include "multi_freearea.h"
+// #include "multi_freearea.h"
 #endif
 
 #define NUMA_STATS_THRESHOLD (U16_MAX - 2)

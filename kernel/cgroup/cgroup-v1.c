@@ -24,6 +24,7 @@
 
 /* STUB: Bypass missing sched_assist_common.h */
 #define cgroup_set_sched_assist_boot_task(...)  do {} while (0)
+#define cgroup_set_sched_assist_boost_task(...) do {} while (0)
 #define cgroup_set_sched_assist_top_task(...)   do {} while (0)
 #define cgroup_set_sched_assist_fg_task(...)    do {} while (0)
 #define cgroup_clear_sched_assist_task(...)     do {} while (0)

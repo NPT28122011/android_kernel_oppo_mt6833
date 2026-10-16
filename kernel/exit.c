@@ -74,8 +74,10 @@
 #define oppo_mm_free_pgd(...) do {} while (0)
 #define oppo_task_exit(...) do {} while (0)
 #define oplus_task_exit(...) do {} while (0)
-#define oplus_is_critical_process(...) (0)
+#define oppo_is_android_core_group(...) (0)
+#define is_critial_process(...) (0)
 #define is_critical_process(...) (0)
+#define oplus_is_critical_process(...) (0)
 #endif
 
 #ifdef CONFIG_OPLUS_FEATURE_UID_PERF

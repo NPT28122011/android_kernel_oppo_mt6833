@@ -22,7 +22,11 @@
 #include "tune.h"
 #include "cpufreq_schedutil.h"
 #if defined(OPLUS_FEATURE_SCHED_ASSIST) && (CONFIG_SCHED_WALT)
-#include <linux/sched_assist/sched_assist_common.h>
+// #include <linux/sched_assist/sched_assist_common.h>
+enum { SA_SLIDE = 0, SA_INPUT, SA_LAUNCHER_SI, SA_ANIM, SA_LAUNCH, SA_MAX };
+static inline bool test_task_ux(struct task_struct *p) { return false; }
+static inline bool sched_assist_scene(int scene) { return false; }
+static inline bool is_heavy_ux_task(struct task_struct *p) { return false; }
 extern int sysctl_slide_boost_enabled;
 extern int sysctl_sched_assist_enabled;
 extern u64 ux_task_load[];

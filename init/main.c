@@ -100,7 +100,12 @@
 #endif
 
 #ifdef OPLUS_FEATURE_PHOENIX
-#include "../drivers/soc/oplus/system/oplus_phoenix/oplus_phoenix.h"
+// #include "../drivers/soc/oplus/system/oplus_phoenix/oplus_phoenix.h"
+/* STUB: Bypass missing oplus_phoenix */
+#define op_kernel_init_start(...) do {} while (0)
+#define op_kernel_init_end(...) do {} while (0)
+#define oplus_phoenix_init(...) do {} while (0)
+#define phoenix_init(...) do {} while (0)
 #endif
 
 static int kernel_init(void *);

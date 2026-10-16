@@ -1980,7 +1980,7 @@ void __init init_mm_internals(void)
 {
 	int ret __maybe_unused;
 #if defined(OPLUS_FEATURE_MULTI_FREEAREA) && defined(CONFIG_PHYSICAL_ANTI_FRAGMENTATION)
-    struct proc_dir_entry *pentry;
+    // struct proc_dir_entry *pentry;
 #endif
 
 	mm_percpu_wq = alloc_workqueue("mm_percpu_wq", WQ_MEM_RECLAIM, 0);
@@ -2016,7 +2016,7 @@ void __init init_mm_internals(void)
 	}
 #endif
 #endif
-}
+// }
 
 #if defined(CONFIG_DEBUG_FS) && defined(CONFIG_COMPACTION)
 

@@ -33,7 +33,15 @@
 #define PANIC_BLINK_SPD 18
 
 #ifdef OPLUS_FEATURE_PHOENIX
-#include "../drivers/soc/oplus/system/oplus_phoenix/oplus_phoenix.h"
+// #include "../drivers/soc/oplus/system/oplus_phoenix/oplus_phoenix.h"
+/* STUB: Bypass missing oplus_phoenix in panic.c */
+#define op_kernel_panic(...) do {} while (0)
+#define oplus_phoenix_panic(...) do {} while (0)
+#define phoenix_kernel_panic(...) do {} while (0)
+#define phx_set_boot_stage(...) do {} while (0)
+#define oplus_phoenix_init(...) do {} while (0)
+#define op_kernel_init_start(...) do {} while (0)
+#define op_kernel_init_end(...) do {} while (0)
 #include <linux/timer.h>
 #include <linux/timex.h>
 #include <linux/rtc.h>

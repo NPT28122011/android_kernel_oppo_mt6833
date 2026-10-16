@@ -100,8 +100,17 @@
 #endif
 
 #ifdef OPLUS_FEATURE_PHOENIX
-// #include "../drivers/soc/oplus/system/oplus_phoenix/oplus_phoenix.h"
-/* STUB: Bypass missing oplus_phoenix */
+enum {
+	KERNEL_EARLY_INIT = 0,
+	KERNEL_MM_INIT_DONE,
+	KERNEL_LOCAL_IRQ_ENABLE,
+	KERNEL_DELAYACCT_INIT_DONE,
+	KERNEL_DRIVER_INIT_DONE,
+	KERNEL_DO_INITCALLS_DONE,
+	KERNEL_DO_BASIC_SETUP_DONE,
+	KERNEL_INIT_DONE,
+};
+static void (*phx_set_boot_stage)(int stage) = NULL;
 #define op_kernel_init_start(...) do {} while (0)
 #define op_kernel_init_end(...) do {} while (0)
 #define oplus_phoenix_init(...) do {} while (0)

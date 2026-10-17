@@ -35,9 +35,9 @@ proc-$(CONFIG_PRINTK)	+= kmsg.o
 proc-$(CONFIG_PROC_PAGE_MONITOR)	+= page.o
 
 #ifdef OPLUS_FEATURE_HEALTHINFO
-obj-y	+= healthinfo/
+#obj-y	+= healthinfo/
 #endif /* OPLUS_FEATURE_HEALTHINFO */
 
 #ifdef OPLUS_FEATURE_TASK_CPUSTATS
-obj-$(CONFIG_OPLUS_CTP)	+= task_cpustats/
+#obj-$(CONFIG_OPLUS_CTP)	+= task_cpustats/
 #endif /* OPLUS_FEATURE_TASK_CPUSTATS */

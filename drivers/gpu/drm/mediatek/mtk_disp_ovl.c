@@ -20,7 +20,11 @@
 #include <linux/pm_runtime.h>
 #include <linux/soc/mediatek/mtk-cmdq.h>
 #ifdef OPLUS_BUG_STABILITY
-#include <soc/oplus/system/oplus_mm_kevent_fb.h>
+// #include <soc/oplus/system/oplus_mm_kevent_fb.h>
+#define mm_fb_kevent(...) (0)
+#define oplus_kevent_fb_str(...) (0)
+#define oplus_mm_kevent_fb(...) (0)
+#define mm_fb_display_kevent(...) (0)
 #endif
 
 #include "mtk_drm_drv.h"

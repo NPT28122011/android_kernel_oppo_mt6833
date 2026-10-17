@@ -82,8 +82,9 @@
 #include <linux/hans.h>
 #endif /*OPLUS_FEATURE_HANS_FREEZE*/
 
+#undef OPLUS_FEATURE_SCHED_ASSIST
 #ifdef OPLUS_FEATURE_SCHED_ASSIST
-#include <linux/sched_assist/sched_assist_binder.h>
+// #include <linux/sched_assist/sched_assist_binder.h>
 #endif /* OPLUS_FEATURE_SCHED_ASSIST */
 
 #ifdef CONFIG_MTK_TASK_TURBO

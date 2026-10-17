@@ -21,7 +21,7 @@
 #include "internal.h"
 
 #ifdef OPLUS_FEATURE_HEALTHINFO
-#include <linux/healthinfo/ion.h>
+// #include <linux/healthinfo/ion.h>
 #endif /*OPLUS_FEATURE_HEALTHINFO*/
 #include <trace/hooks/vh_vmscan.h>
 
@@ -169,8 +169,8 @@ static int meminfo_proc_show(struct seq_file *m, void *v)
 #endif
 
 #if defined(OPLUS_FEATURE_HEALTHINFO) && defined(CONFIG_ION) && defined(CONFIG_OPLUS_HEALTHINFO)
-	show_val_kb(m, "IonTotalCache:   ", global_zone_page_state(NR_IONCACHE_PAGES));
-	show_val_kb(m, "IonTotalUsed:   ", ion_total() >> PAGE_SHIFT);
+	//show_val_kb(m, "IonTotalCache:   ", global_zone_page_state(NR_IONCACHE_PAGES));
+	//show_val_kb(m, "IonTotalUsed:   ", ion_total() >> PAGE_SHIFT);
 #endif /*OPLUS_FEATURE_HEALTHINFO*/
 //#ifdef OPLUS_FEATURE_HEALTHINFO
 	//show_val_kb(m, "GPUTotalUsed:	", gpu_total() >> PAGE_SHIFT);

@@ -13,6 +13,18 @@
 #define PROJECT_210A0           210A0
 #define PROJECT_20796           20796
 
+/* Bảng hằng số bo mạch PCB khớp chính xác dòng 5360 của mtk_battery.c */
+#define PCB_VERSION_PRE_EVB     0
+#define PCB_VERSION_EVB         1
+#define PCB_VERSION_EVT         2
+#define PCB_VERSION_EVT1        2
+#define PCB_VERSION_EVT2        3
+#define PCB_VERSION_DVT         4
+#define PCB_VERSION_DVT1        4
+#define PCB_VERSION_DVT2        5
+#define PCB_VERSION_PVT         6
+#define PCB_VERSION_MP          7
+
 #define get_project()                   (21102)
 #define is_project(p)                   ((p) == 21102)
 #define is_oplus_project(p)             ((p) == 21102)
@@ -20,10 +32,9 @@
 #define is_confidential_project()       (0)
 #define is_ocp_project(p)               (0)
 
-/* Hàm định danh phiên bản bo mạch cho Camera Imgsensor */
-static inline int get_PCB_Version(void)              { return 0; }
+/* Trả về PCB_VERSION_MP (máy thương mại xuất xưởng) chuẩn xác */
+static inline int get_PCB_Version(void)              { return PCB_VERSION_MP; }
 
-/* Các định danh dự án phụ trợ */
 static inline const char *get_project_name(void)     { return "21102"; }
 static inline const char *get_ocp_project_name(void) { return "21102"; }
 static inline const char *get_project_prjname(void)  { return "21102"; }

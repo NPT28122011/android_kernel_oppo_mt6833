@@ -138,4 +138,4 @@ obj-$(CONFIG_DUMP_TASKS_MEM) += task_mem/
 obj-$(CONFIG_OPLUS_MULTI_KSWAPD) += multi_kswapd/
 #endif /*OPLUS_FEATURE_MULTI_KSWAPD*/
 
-obj-y += async_shrink_slabd.o
+#obj-y += async_shrink_slabd.o

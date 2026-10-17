@@ -4,7 +4,7 @@
 
 #include <linux/types.h>
 
-/* Bảng Project ID khớp 100% với phần cứng CPH2339 (Project 21102) */
+/* Bảng Project ID khớp 100% với DTB Overlay của CPH2339 */
 #define PROJECT_21102           21102
 #define PROJECT_21625           21625
 #define PROJECT_20609           20609
@@ -20,6 +20,10 @@
 #define is_confidential_project()       (0)
 #define is_ocp_project(p)               (0)
 
+/* Hàm định danh phiên bản bo mạch cho Camera Imgsensor */
+static inline int get_PCB_Version(void)              { return 0; }
+
+/* Các định danh dự án phụ trợ */
 static inline const char *get_project_name(void)     { return "21102"; }
 static inline const char *get_ocp_project_name(void) { return "21102"; }
 static inline const char *get_project_prjname(void)  { return "21102"; }
